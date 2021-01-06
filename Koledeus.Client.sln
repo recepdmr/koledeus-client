@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2CB382B5-6312-426D-9654-1AA607646848}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Koledeus.Client", "src\Koledeus.Client\Koledeus.Client.csproj", "{C55AEC8E-355E-489C-B2DC-43A838E57D0C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C55AEC8E-355E-489C-B2DC-43A838E57D0C} = {2CB382B5-6312-426D-9654-1AA607646848}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C55AEC8E-355E-489C-B2DC-43A838E57D0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C55AEC8E-355E-489C-B2DC-43A838E57D0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C55AEC8E-355E-489C-B2DC-43A838E57D0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C55AEC8E-355E-489C-B2DC-43A838E57D0C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
