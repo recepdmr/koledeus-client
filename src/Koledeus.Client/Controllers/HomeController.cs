@@ -20,35 +20,7 @@ namespace Koledeus.Client.Controllers
 
         public IActionResult Index()
         {
-            var cpuUseage = GetCpuUsageForProcess();
-            return View(cpuUseage);
-        }
-
-
-        private double GetCpuUsageForProcess()
-        {
-            double total = 0;
-            var processes = Process.GetProcesses();
-            foreach (var process in processes)
-            {
-                var cpuUseage = GetCPUUseageByProcess(process);
-                total += cpuUseage;
-            }
-
-            return total;
-        }
-
-        private double GetCPUUseageByProcess(Process process)
-        {
-            var startTime = DateTime.UtcNow;
-            var startCpuUsage = process.TotalProcessorTime;
-
-            var endTime = DateTime.UtcNow;
-            var endCpuUsage = process.TotalProcessorTime;
-            var cpuUsedMs = (endCpuUsage - startCpuUsage).TotalMilliseconds;
-            var totalMsPassed = (endTime - startTime).TotalMilliseconds;
-            var cpuUsageTotal = cpuUsedMs / (Environment.ProcessorCount * totalMsPassed);
-            return cpuUsageTotal * 100;
+            return View();
         }
 
         public IActionResult Privacy()
