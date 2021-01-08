@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using ElectronNET.API;
+using Grpc.Net.Client;
+using Koledeus.Client.Services;
+using Koledeus.Contract;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,6 +28,17 @@ namespace Koledeus.Client
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(provider =>
+            {
+                return new Cpu.CpuClient(
+                    GrpcChannel.ForAddress(Configuration.GetValue<string>("CPUTracker:ServerUrl"),
+                        new GrpcChannelOptions()
+                        {
+                            HttpClient = new HttpClient(new HttpClientHandler())
+                        }));
+            });
+            services.AddSingleton<ICPUInfoService, CPUInfoService>();
+            services.AddHostedService<CPUTrackerHostedService>();
             services.AddControllersWithViews();
         }
 
@@ -47,6 +62,7 @@ namespace Koledeus.Client
             app.UseRouting();
 
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {
