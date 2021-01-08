@@ -4,6 +4,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2CB382B5-631
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Koledeus.Client", "src\Koledeus.Client\Koledeus.Client.csproj", "{C55AEC8E-355E-489C-B2DC-43A838E57D0C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "protos", "protos", "{53CBD77F-1DC4-4E43-B02D-F63823D47CCD}"
+ProjectSection(SolutionItems) = preProject
+	protos\cpu.proto = protos\cpu.proto
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
