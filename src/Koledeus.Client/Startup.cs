@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using ElectronNET.API;
+using ElectronNET.API.Entities;
 using Grpc.Net.Client;
 using Koledeus.Client.Services;
 using Koledeus.Contract;
@@ -43,7 +44,7 @@ namespace Koledeus.Client
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime)
         {
             if (env.IsDevelopment())
             {
@@ -71,7 +72,22 @@ namespace Koledeus.Client
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            Task.Run(async () => await Electron.WindowManager.CreateWindowAsync());
+            Task.Run(() => BootstrapElectron(lifetime));
+        }
+        
+        private async Task BootstrapElectron(IHostApplicationLifetime lifetime)
+        {
+            var browserWindow = await Electron.WindowManager.CreateWindowAsync(new BrowserWindowOptions()
+            {
+                Show = false
+            });
+
+            browserWindow.OnReadyToShow += () =>
+            {
+                browserWindow.Show();
+            };
+
+            browserWindow.OnClosed += lifetime.StopApplication;
         }
     }
 }
