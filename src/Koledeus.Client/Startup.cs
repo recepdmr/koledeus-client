@@ -38,7 +38,7 @@ namespace Koledeus.Client
                             HttpClient = new HttpClient(new HttpClientHandler())
                         }));
             });
-            services.AddSingleton<ICPUInfoService, CPUInfoService>();
+            services.AddSingleton<ICPUInfoService, ProcessInfoService>();
             services.AddHostedService<CPUTrackerHostedService>();
             services.AddControllersWithViews();
         }
