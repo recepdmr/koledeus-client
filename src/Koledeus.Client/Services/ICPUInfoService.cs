@@ -16,12 +16,12 @@ namespace Koledeus.Client.Services
             double total = 0;
             var processes = Process.GetProcesses();
 
-            Parallel.ForEach(processes, process =>
+            foreach (var process in processes)
             {
                 var cpuUseage = GetCPUUseageByProcess(process);
-                // TODO (peacecwz): This code is not working on threadsafe, It needs refactoring for working threadsafe
+
                 total += cpuUseage;
-            });
+            }
 
             return total;
         }
