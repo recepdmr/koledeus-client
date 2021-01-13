@@ -6,24 +6,32 @@ namespace Koledeus.Client.Services
 {
     public interface ICPUInfoService
     {
-        double GetCpuUsageForProcess();
+        (double, long) GetUsageOfProcess();
     }
 
-    public class CPUInfoService : ICPUInfoService
+    public class ProcessInfoService : ICPUInfoService
     {
-        public double GetCpuUsageForProcess()
+        public (double, long) GetUsageOfProcess()
         {
-            double total = 0;
+            double totalCpuUsage = 0;
+            long totalMemoryUsage = 0;
             var processes = Process.GetProcesses();
-
+            
             foreach (var process in processes)
             {
-                var cpuUseage = GetCPUUseageByProcess(process);
-
-                total += cpuUseage;
+                var cpuUsage = GetCPUUseageByProcess(process);
+                var memoryUsage = GetMemoryUsageByProcess(process);
+            
+                totalCpuUsage += cpuUsage;
+                totalMemoryUsage += memoryUsage;
             }
+            
+            return (totalCpuUsage, totalMemoryUsage);
+        }
 
-            return total;
+        private long GetMemoryUsageByProcess(Process process)
+        {
+            return process.WorkingSet64;
         }
 
         private double GetCPUUseageByProcess(Process process)

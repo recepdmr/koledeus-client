@@ -40,10 +40,12 @@ namespace Koledeus.Client
 
         private async void DoWork(object state)
         {
-            double cpuPercentage = _cpuInfoService.GetCpuUsageForProcess();
+            var (cpuPercentage, memoryUsage) = _cpuInfoService.GetUsageOfProcess();
+
             await _feedCpuInfoCall.RequestStream.WriteAsync(new CPUInfoRequest()
             {
-                CpuPercentage = cpuPercentage
+                CpuPercentage = cpuPercentage,
+                MemoryUsage = memoryUsage
             });
 
             _logger.LogInformation($"CPU Useage: {cpuPercentage}%");
@@ -57,7 +59,7 @@ namespace Koledeus.Client
             var response = await _feedCpuInfoCall.ResponseAsync;
 
             _logger.LogInformation($"Server Response is {response.IsSuccess}");
-            
+
             _timer?.Change(Timeout.Infinite, 0);
         }
 
